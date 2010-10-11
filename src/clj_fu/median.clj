@@ -1,5 +1,7 @@
 (ns clj-fu.median)
 
+;; finding the median of two sorted vectors in O(nlgn)
+
 (defn first-half [v]
   (subvec v 0 (/ (count v) 2)))
 
