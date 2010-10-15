@@ -13,10 +13,12 @@
 ;; clojure in clojure
 ;; solve the expression problems
 
-
 (defprotocol Grow
   "a simple protocol"
   (grow [self] "growing...")) ;; self is the type implementing the protocol itself
+
+;; defprotocol will automatically generate a corresponding interface with the
+;; same name as the protocol
 
 ;; on declaration, two new vars are created
 ;; 1. Grow (The protocol itself) and grow
@@ -50,23 +52,25 @@
 
 ;; what if we want to "grow" implementations of type Tree?
 ;; second method, "extending a type"
-(extend-type Tree    ;; This is necessary for cases where you do not have the source code for the already implemented Type
+(extend-type Tree
   Grow
   (grow [self] "getting wiser"))
-
 (grow banyan)
+;; This is necessary for cases where you do not
+;; have the source code for the already implemented Type
 
 ;; we may require an anonymous object which implements a protocol/interface or Object,
 ;; this object may not contain any type information
 (grow (reify
-       Grow
-       (grow [self] "growing...")))
+        Grow
+        (grow [self] "growing...")))
 
-(let [age 100]  ;; can access surrounding lexical scope
-  (grow
-   (reify Grow
-          (grow [self] (str "grew by " age " years")))))
+ (let [age 100]  ;; can access surrounding lexical scope
+   (grow
+    (reify Grow
+         (grow [self] (str "grew by " age " years")))))
 
 ;; use reify instead of proxy where-ever possible
 ;; when defrecord is created, Clojure implements interface like persistent maps, hashcode, keyword accessors etc,
-;; whereas for deftype none of these interface are added by default (for cases where we want a type with mutable fields)
+;; whereas for deftype none of these interface are added by default
+;; (deftype may be required for cases where we want a type with mutable fields)
