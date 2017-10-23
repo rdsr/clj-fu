@@ -1,4 +1,4 @@
-(ns clj-fu.transducers)
+(ns clj-fu.play.transducers)
 
 (def data (range 0 10))
 
