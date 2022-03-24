@@ -1,0 +1,9 @@
+{:paths ["src/clj_fu"]
+ :deps  {criterium/criterium {:mvn/version "0.4.6"}
+         hashp/hashp {:mvn/version "0.2.0"}
+         org.clojure/clojure {:mvn/version "1.10.3"}
+         org.clojure/data.json {:mvn/version "0.2.6"}
+         org.clojure/tools.trace {:mvn/version "0.7.10"}
+         org.clojure/data.csv {:mvn/version "1.0.0"}
+
+         com.hypirion/clj-xchart {:mvn/version "0.2.0"}}}

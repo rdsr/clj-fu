@@ -1,3 +1,47 @@
+(ns scratch
+  (:require [clojure.data.csv :as c]
+            [clojure.java.io :as io]))
+
+(defn csv->map [data]
+  (let [ks (->> data
+                first ;; header
+                (map keyword)
+                repeat)]
+    (map zipmap ks (rest data))))
+
+(defn read-file [f]
+  (c/read-csv (io/reader f)))
+
+(def gp "/Users/rratti/tmp/gp.csv")
+(def bw "/Users/rratti/tmp/bw.csv")
+(first (read-file gp))
+(first (read-file bw))
+
+(defn idx-by-name [rows]
+  (reduce (fn [m row]
+           (assoc m (:name row) row))
+         {}
+         rows))
+
+(def gpd (csv->map (read-file gp)))
+(def bwd (csv->map (read-file bw)))
+
+(idx-by-name gpd)
+(idx-by-name bwd)
+
+
+
+(map :name gpd)
+(map :name bwd)
+
+(doseq [e gpd]
+  (println (:name e)))
+
+(doseq [e bwd]
+  (println (:name e)))
+
+
+
 (defn pangram? [s]
   (or (empty? s)
       (= (set "abcdefghijklmnopqrstuvwxyz")
